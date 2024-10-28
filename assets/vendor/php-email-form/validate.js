@@ -14,7 +14,8 @@
 
       let thisForm = this;
 
-      let action = thisForm.getAttribute('action');
+      // let action = thisForm.getAttribute('action');
+      let action = "https://kxirupehqa.execute-api.ap-south-1.amazonaws.com/Dev/sendmail/"
       let recaptcha = thisForm.getAttribute('data-recaptcha-site-key');
       
       if( ! action ) {
@@ -25,13 +26,22 @@
       thisForm.querySelector('.error-message').classList.remove('d-block');
       thisForm.querySelector('.sent-message').classList.remove('d-block');
 
-      let formData = new FormData( thisForm );
+      // let formData = new FormData( thisForm );
+           // Gather form data as JSON
+           let formData = {
+            name: thisForm.querySelector('[name="name"]').value,
+            email: thisForm.querySelector('[name="email"]').value,
+            phone: thisForm.querySelector('[name="phone"]').value,
+            message: thisForm.querySelector('[name="message"]').value
+          };
+
+          console.log("The form data is -->",formData)
 
       if ( recaptcha ) {
         if(typeof grecaptcha !== "undefined" ) {
-          grecaptcha.ready(function() {
+          recaptcha.ready(function() {
             try {
-              grecaptcha.execute(recaptcha, {action: 'php_email_form_submit'})
+              recaptcha.execute(recaptcha, {action: 'php_email_form_submit'})
               .then(token => {
                 formData.set('recaptcha-response', token);
                 php_email_form_submit(thisForm, action, formData);
@@ -52,19 +62,21 @@
   function php_email_form_submit(thisForm, action, formData) {
     fetch(action, {
       method: 'POST',
-      body: formData,
-      headers: {'X-Requested-With': 'XMLHttpRequest'}
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'}
     })
     .then(response => {
       if( response.ok ) {
-        return response.text();
+        return response.json();
       } else {
         throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
       }
     })
     .then(data => {
       thisForm.querySelector('.loading').classList.remove('d-block');
-      if (data.trim() == 'OK') {
+      if (data.trim() === "OK") {
         thisForm.querySelector('.sent-message').classList.add('d-block');
         thisForm.reset(); 
       } else {
