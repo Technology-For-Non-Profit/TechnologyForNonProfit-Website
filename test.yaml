@@ -1,0 +1,9 @@
+main-task:
+  - name:"NInad"
+    age:12
+    place:Thane
+  - name:"Ninad"
+    age:14
+    place: | 
+    thane
+    Mumbai
