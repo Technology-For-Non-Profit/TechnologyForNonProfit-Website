@@ -17,18 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
       preloader.remove();
     });
 
-    // fetch('./header.html').then(response=>{
-    //   if(!response.ok){
-    //     throw new Error('There is error - ${response.status');
-    //   }
-    //   return response.text();
-    // }).then(
-    //   d=>{
-    //     document.getElementById('header').innerHTML=d;
-    //   }
-    // ).catch(error=>{
-    //   console.error('Error Loading Header',error)
-    // })
     document.getElementById(
       "insert-header"
     ).innerHTML = `<header id="header" class="header d-flex align-items-center">
