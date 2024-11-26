@@ -32,11 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="projects.html">Projects</a></li>
-         <!-- <li><a href="blog.html">Blog</a></li> -->
+          <li><a href="contact.html">Contact</a></li>
+            <!-- <li><a href="blog.html">Blog</a></li> -->
           <!-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="#">Dropdown 1</a></li>
@@ -54,13 +55,38 @@ document.addEventListener("DOMContentLoaded", () => {
               <li><a href="#">Dropdown 4</a></li>
             </ul>
           </li> -->
-          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
 
     </div>
   </header>`;
   }
+
+
+
+  /* Ensuring the Header Selector Highlights current Page  - Start */
+
+
+  const currentPage = window.location.pathname.split('/').pop();
+
+  // Get all the links in the navigation
+  const navLinks = document.querySelectorAll("#navbar a");
+
+  // Loop through all the links
+  navLinks.forEach(link => {
+    // Remove the 'active' class from all links
+    link.classList.remove('active');
+
+    // Check if the link's href matches the current page
+    if (link.getAttribute('href') === currentPage) {
+      // Add 'active' class to the current page's link
+      link.classList.add('active');
+    }
+
+
+  });
+
+  /* Ensuring the Header Selector Highlights current Page  - End */
 
   /**
    * Mobile nav toggle
