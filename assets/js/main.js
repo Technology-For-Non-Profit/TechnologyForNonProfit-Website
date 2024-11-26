@@ -11,6 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
   /**
    * Preloader
    */
+
+  // Get the <title> element by its tag name
+  const titleElement = document.getElementsByTagName('title')[0];
+
+  // Change the content of the <title> element
+  titleElement.textContent = "Technology For Non-Profit";
+
+
   const preloader = document.querySelector("#preloader");
   if (preloader) {
     window.addEventListener("load", () => {
